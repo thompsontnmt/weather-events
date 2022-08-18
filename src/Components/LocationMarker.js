@@ -7,13 +7,22 @@ import iceIcon from '@iconify/icons-emojione/snowflake';
 
 const LocationMarker = ({lat, lng, onClick, id}) => {
     let renderIcon = null;
-    if(id === 'wildfires'){
+    // if(id === 8){
+    //     renderIcon = fireIcon
+    // }else if (id === 10){
+    //     renderIcon = stormIcon
+    // }else if (id === 12){
+    //     renderIcon = volcanoIcon
+    // }else if (id === 15){
+    //     renderIcon = iceIcon
+    // }
+    if(id === "wildfires"){
         renderIcon = fireIcon;
-    } else if(id === 'severeStorms'){
+    } else if(id === "severeStorms"){
         renderIcon = stormIcon;
-    } else if(id === 'volcanoes'){
+    } else if(id === "volcanoes"){
         renderIcon = volcanoIcon;
-    } else if(id === 'seaLakeIce'){
+    } else if(id === "seaLakeIce"){
         renderIcon = iceIcon;
     }
 

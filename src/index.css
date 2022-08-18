@@ -59,3 +59,13 @@ body {
         transform: rotate(360deg);
     }
 }
+
+.cluster-marker {
+    color: white;
+    background: firebrick;
+    border-radius: 50%;
+    padding: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
