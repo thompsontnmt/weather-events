@@ -1,0 +1,27 @@
+import React from 'react'
+import {Icon} from '@iconify/react';
+import fireIcon from '@iconify/icons-emojione/fire';
+import volcanoIcon from '@iconify/icons-emojione/volcano';
+import stormIcon from '@iconify/icons-emojione/cloud-with-lightning-and-rain';
+import iceIcon from '@iconify/icons-emojione/snowflake';
+
+const LocationMarker = ({lat, lng, onClick, id}) => {
+    let renderIcon = null;
+    if(id === 'wildfires'){
+        renderIcon = fireIcon;
+    } else if(id === 'severeStorms'){
+        renderIcon = stormIcon;
+    } else if(id === 'volcanoes'){
+        renderIcon = volcanoIcon;
+    } else if(id === 'seaLakeIce'){
+        renderIcon = iceIcon;
+    }
+
+  return (
+    <div onClick={onClick}>
+        <Icon icon={renderIcon} className='location-icon'/>
+    </div>
+  )
+}
+
+export default LocationMarker;
