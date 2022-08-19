@@ -14,7 +14,7 @@ export function ContextProvider({children}) {
     // need to re render markers because user has changed filter option
     const [reRenderMarkers, setRerenderMarkers] = useState(null);
 
-    const values = {
+    const value = {
         eventData,
         setEventData,
         selectedEvent,
@@ -23,7 +23,7 @@ export function ContextProvider({children}) {
     }
 
     return(
-        <mainContext.Provider value={values}>
+        <mainContext.Provider value={value}>
             {children}
         </mainContext.Provider>
     )

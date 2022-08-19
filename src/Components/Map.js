@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect } from 'react'
+import React, {useState, useRef, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import useSuperCluster from 'use-supercluster';
 import LocationMarker from './LocationMarker';
@@ -30,9 +30,9 @@ const Map = ({ center, eventData }) => {
             "cluster": false,
             "eventKey": event.id,
             "eventTitle": event.title,
-            "eventType": event.categories[0].id
+            "eventType": event.categories.id
         },
-        "geometry": {"type": 'Point', "coordinates": [event.geometries[1].coordinates[1], event.geometries[1].coordinates[1]]}
+        "geometry": { "type": "Point", "coordinates": [event.geometry[0].coordinates[0], event.geometry[0].coordinates[1]] }
     }));
 
     //Get clusters
@@ -61,7 +61,8 @@ const Map = ({ center, eventData }) => {
                     bounds.se.lng,
                     bounds.nw.lat
                 ]);
-            }}>
+            }}
+            >
             {clusters.map(cluster => {
                 const [longitude, latitude] = cluster.geometry.coordinates;
                 const {cluster: isCluster, point_count: pointCount} = cluster.properties;
