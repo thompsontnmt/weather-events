@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Header from './Components/Header';
 import Map from './Components/Map';
 import Loader from './Components/Loader';
+import Search from './Components/Search';
 // Main Context
 import {useMainContext} from './Context/Context';
 
@@ -18,7 +19,7 @@ const App = () => {
     const fetchEvents = async () => {
       setLoading(true);
       const res = await fetch("https://eonet.gsfc.nasa.gov/api/v3/events");
-      // const res = await fetch("https://eonet.gsfc.nasa.gov/api/v2.1/events");
+      // DEPRECATED API -----> const res = await fetch("https://eonet.gsfc.nasa.gov/api/v2.1/events");
       // Extract the Array contained in the 'events' field
       const {events} = await res.json();
       console.log(events);
@@ -33,6 +34,7 @@ const App = () => {
     <div>
         <Header />
         {!loading ? <Map eventData={renderEvent} /> :<Loader />}
+        {!loading && <Search />}
     </div>
   )
 }

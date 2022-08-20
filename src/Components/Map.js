@@ -2,12 +2,16 @@ import React, {useState, useRef, useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
 import useSuperCluster from 'use-supercluster';
 import LocationMarker from './LocationMarker';
+import LocationInfoBox from './LocationInfoBox';
 
 const Map = ({ center, eventData }) => {
     // const {selectedEvent} = useMainContext();
     const mapRef = useRef();
     const [zoom, setZoom] = useState(1);
     const [bounds, setBounds] = useState(null);
+
+    //InfoBox
+    const [locationInfo, setLocationInfo] = useState(null);
 
     // Index for reference
     const eventDataIndex = {
@@ -30,7 +34,7 @@ const Map = ({ center, eventData }) => {
             "cluster": false,
             "eventKey": event.id,
             "eventTitle": event.title,
-            "eventType": event.categories.id
+            "eventType": event.categories[0].id
         },
         "geometry": { "type": "Point", "coordinates": [event.geometry[0].coordinates[0], event.geometry[0].coordinates[1]] }
     }));
@@ -62,7 +66,8 @@ const Map = ({ center, eventData }) => {
                     bounds.nw.lat
                 ]);
             }}
-            >
+            onClick={() => {setLocationInfo(null)}}
+            onDrag={() => {setLocationInfo(null)}}>
             {clusters.map(cluster => {
                 const [longitude, latitude] = cluster.geometry.coordinates;
                 const {cluster: isCluster, point_count: pointCount} = cluster.properties;
@@ -77,14 +82,38 @@ const Map = ({ center, eventData }) => {
                             <div className="cluster-marker" style={{
                                 width: `${addSize + changeSize}px`,
                                 height: `${addSize + changeSize}px`
-                            }}>
+                            }}
+                            onClick={() => {
+                                const expansionZoom = Math.min(
+                                    supercluster.getClusterExpansionZoom(cluster.id),
+                                    20
+                                );
+                                mapRef.current.setZoom(expansionZoom);
+                                mapRef.current.panTo({lat: latitude, lng: longitude});
+                            }}
+                            >
                                 {pointCount}
                             </div>
                         </section>
                     )
                 }
+                // Not a cluster, just a single point
+                if(eventDataIndexStr.indexOf(clusterId) !== -1 && cluster.geometry.coordinates.length === 2){
+                    return(
+                        <LocationMarker 
+                            lat={latitude}
+                            lng={longitude}
+                            id={clusterId}
+                            key={cluster.properties.eventKey}
+                            onClick= {() => {
+                                setLocationInfo({id: cluster.properties.eventKey, title: cluster.properties.eventTitle})
+                            }}
+                        />
+                    )
+                }
             })}
         </GoogleMapReact>
+        {locationInfo && <LocationInfoBox info={locationInfo} />}
     </div>
   );
 }
