@@ -30,6 +30,14 @@ const App = () => {
     }
     fetchEvents();
   }, [])
+
+  useEffect(() => {
+    if(reRenderMarkers !== null){
+      setRenderEvent(reRenderMarkers);
+    }
+  }, [reRenderMarkers])
+
+
   return (
     <div>
         <Header />
@@ -39,4 +47,4 @@ const App = () => {
   )
 }
 
-export default App
+export default App;

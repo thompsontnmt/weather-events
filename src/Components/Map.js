@@ -3,8 +3,13 @@ import GoogleMapReact from 'google-map-react';
 import useSuperCluster from 'use-supercluster';
 import LocationMarker from './LocationMarker';
 import LocationInfoBox from './LocationInfoBox';
+// Main Context
+import {useMainContext} from '../Context/Context';
 
 const Map = ({ center, eventData }) => {
+
+    const {selectedEvent} = useMainContext();
+
     // const {selectedEvent} = useMainContext();
     const mapRef = useRef();
     const [zoom, setZoom] = useState(1);
@@ -46,6 +51,15 @@ const Map = ({ center, eventData }) => {
         zoom,
         options: {radius: 75, maxZoom: 20}
     });
+
+    useEffect(() => {
+        if(selectedEvent !== null) {
+            const [latitude, longitude] = selectedEvent.geometry[0].coordinates;
+            mapRef.current.panTo({lat: latitude, lng: longitude});
+            mapRef.current.setZoom(10);
+
+        }
+    }, [selectedEvent])
 
   return (
     <div className='map-container'>

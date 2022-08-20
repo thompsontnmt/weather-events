@@ -12,14 +12,14 @@ export function ContextProvider({children}) {
     // used to store the event that the user wants to go to 
     const [selectedEvent, setSelectedEvent] = useState(null);
     // need to re render markers because user has changed filter option
-    const [reRenderMarkers, setRerenderMarkers] = useState(null);
+    const [reRenderMarkers, setReRenderMarkers] = useState(null);
 
     const value = {
         eventData,
         setEventData,
         selectedEvent,
         reRenderMarkers,
-        setRerenderMarkers
+        setReRenderMarkers
     }
 
     return(

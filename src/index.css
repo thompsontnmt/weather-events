@@ -150,3 +150,13 @@ textarea {
 td {
   padding: 10px;
 }
+
+.option-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+.option-container p {
+    margin-right: 10px;
+}
