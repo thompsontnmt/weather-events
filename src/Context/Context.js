@@ -18,6 +18,7 @@ export function ContextProvider({children}) {
         eventData,
         setEventData,
         selectedEvent,
+        setSelectedEvent,
         reRenderMarkers,
         setReRenderMarkers
     }
